@@ -95,12 +95,14 @@ class SessionAccess(SessionCookie, SessionHTTPRequests):
         """Perform account login"""
         try:
             # First we get the authentication url without logging in, required for login API call
-            react_context = website.extract_json(self.get('login'), 'reactContext')
+            react_context = website.extract_json(self.get('login_init'), 'reactContext')
             auth_url = website.extract_api_data(react_context)['auth_url']
+            locale_url = react_context['models']['geo']['data']['localeUrl']  # e.g. "it-en"
             LOG.debug('Logging in...')
             login_response = self.post(
                 'login',
-                data=_login_payload(common.get_credentials(), auth_url))
+                data=_login_payload(common.get_credentials(), auth_url),
+                append_to_address=locale_url)
             try:
                 website.extract_session_data(login_response, validate=True, update_profiles=True)
                 LOG.info('Login successful')

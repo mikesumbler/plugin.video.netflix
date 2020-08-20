@@ -121,7 +121,7 @@ class SessionHTTPRequests(SessionBase):
         params = {}
 
         headers = {'Accept': endpoint_conf.get('accept', '*/*')}
-        if endpoint_conf['address'] not in ['/login', '/browse', '/SignOut']:
+        if not endpoint_conf['address'].endswith(('/login', '/browse', '/SignOut')):
             headers['x-netflix.nq.stack'] = 'prod'
             headers['x-netflix.request.client.user.guid'] = G.LOCAL_DB.get_active_profile_guid()
         if endpoint_conf.get('content_type'):

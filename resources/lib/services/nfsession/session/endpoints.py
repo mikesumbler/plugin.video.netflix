@@ -34,8 +34,15 @@ BASE_URL = 'https://www.netflix.com'
 #   If required add the Accept attribute to request header (if not specified use '*/*')
 
 ENDPOINTS = {
-    'login':
+    'login_init':
         {'address': '/login',
+         'is_api_call': False,
+         'use_default_params': False,
+         'add_auth_url': None,
+         'content_type': 'application/x-www-form-urlencoded',
+         'accept': 'text/html,application/xhtml+xml,application/xml'},
+    'login':
+        {'address': '/{}/login',  # Will be inserted the locale code
          'is_api_call': False,
          'use_default_params': False,
          'add_auth_url': None,
