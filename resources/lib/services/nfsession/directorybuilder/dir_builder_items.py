@@ -150,7 +150,8 @@ def _create_season_item(tvshowid, seasonid_value, season, season_list, common_da
         'video_id': seasonid_value,
         'media_type': seasonid.mediatype,
         'label': season['summary']['name'],
-        'is_folder': True
+        'is_folder': True,
+        'properties': {'nf_videoid': seasonid.to_string()}
     }
     add_info_dict_item(dict_item, seasonid, season, season_list.data, False, common_data)
     dict_item['art'] = get_art(tvshowid, season, common_data['profile_language_code'])
@@ -308,7 +309,8 @@ def _create_video_item(videoid_value, video, video_list, perpetual_range_start, 
     dict_item = {'video_id': videoid_value,
                  'media_type': videoid.mediatype,
                  'label': video['title'],
-                 'is_folder': is_folder}
+                 'is_folder': is_folder,
+                 'properties': {'nf_videoid': videoid.to_string()}}
     add_info_dict_item(dict_item, videoid, video, video_list.data, is_in_mylist, common_data)
     set_watched_status(dict_item, video, common_data)
     dict_item['art'] = get_art(videoid, video, common_data['profile_language_code'])
